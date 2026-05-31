@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #f8fafc;
 }
 
 @theme inline {
@@ -12,15 +12,677 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+section[id] {
+  scroll-margin-top: 92px;
+}
+
+::selection {
+  background: rgba(20, 241, 149, 0.3);
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #000;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+.logo-marquee {
+  animation: marquee 26s linear infinite;
+}
+
+.review-marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.review-marquee-track {
+  animation: reviewMarquee 58s linear infinite;
+  transform: translate3d(-50%, 0, 0);
+  will-change: transform;
+}
+
+.review-marquee-mask:hover .review-marquee-track,
+.review-marquee-mask:active .review-marquee-track {
+  animation-play-state: paused;
+}
+
+.review-card {
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.about-zenith-bg {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(20, 241, 149, 0.13), transparent 30%),
+    radial-gradient(circle at 88% 20%, rgba(153, 69, 255, 0.15), transparent 32%),
+    linear-gradient(180deg, #000 0%, #030712 50%, #000 100%);
+}
+
+.about-zenith-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 0%, rgba(0, 194, 255, 0.09) 24%, transparent 46%),
+    linear-gradient(295deg, transparent 8%, rgba(20, 241, 149, 0.08) 34%, transparent 58%);
+  background-size: 180% 180%;
+  animation: aboutGradientMove 18s ease-in-out infinite alternate;
+  opacity: 0.72;
+}
+
+.about-zenith-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 78px 78px;
+  mask-image: radial-gradient(ellipse at center, black, transparent 74%);
+  opacity: 0.35;
+}
+
+.about-gradient-orb {
+  position: absolute;
+  z-index: 0;
+  border-radius: 9999px;
+  filter: blur(84px);
+  opacity: 0.42;
+  will-change: transform;
+}
+
+.about-gradient-orb-one {
+  left: -7rem;
+  top: 9rem;
+  width: 27rem;
+  height: 27rem;
+  background: rgba(20, 241, 149, 0.2);
+  animation: aboutOrbOne 20s ease-in-out infinite alternate;
+}
+
+.about-gradient-orb-two {
+  right: -8rem;
+  bottom: 8rem;
+  width: 31rem;
+  height: 31rem;
+  background: rgba(0, 102, 255, 0.22);
+  animation: aboutOrbTwo 24s ease-in-out infinite alternate;
+}
+
+.about-particles span {
+  --x: calc((var(--i) * 41) % 100);
+  --y: calc((var(--i) * 29) % 100);
+  position: absolute;
+  z-index: 0;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: rgba(219, 255, 243, 0.8);
+  box-shadow:
+    0 0 12px rgba(20, 241, 149, 0.55),
+    0 0 22px rgba(0, 194, 255, 0.25);
+  animation: aboutParticleFloat 10s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.45s);
+}
+
+.about-stat-card {
+  box-shadow:
+    0 26px 80px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.solution-scroll-mask,
+.solution-carousel-viewport {
+  scrollbar-width: none;
+}
+
+.solution-scroll-mask {
+  mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+}
+
+.solution-scroll-mask::-webkit-scrollbar,
+.solution-carousel-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.solution-carousel-viewport {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.solution-carousel-track {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.solution-carousel-card {
+  flex: 0 0 min(92vw, 380px);
+  max-width: min(92vw, 380px);
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.solution-description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+@media (min-width: 1024px) {
+  .solution-carousel-mask {
+    mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+  }
+
+  .solution-carousel-track {
+    gap: 1.5rem;
+  }
+
+  .solution-carousel-card {
+    flex-basis: calc((100% - 3rem) / 3);
+    max-width: calc((100% - 3rem) / 3);
+  }
+}
+
+.solution-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.2), transparent 32%),
+    linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.16), transparent 42%);
+  opacity: 0.45;
+  transform: translateX(-40%);
+  transition: opacity 0.3s ease;
+}
+
+.solution-card:hover::before {
+  animation: solutionBorderSweep 2.2s linear infinite;
+  opacity: 0.85;
+}
+
+.contact-grid-bg {
+  background-image:
+    linear-gradient(rgba(96, 165, 250, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.08) 1px, transparent 1px);
+  background-size: 82px 82px;
+  mask-image: radial-gradient(ellipse at center, black, transparent 72%);
+}
+
+.contact-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.42;
+  will-change: transform;
+}
+
+.contact-orb-one {
+  left: 5%;
+  top: 18%;
+  width: 24rem;
+  height: 24rem;
+  background: rgba(153, 69, 255, 0.28);
+  animation: contactOrbOne 18s ease-in-out infinite alternate;
+}
+
+.contact-orb-two {
+  bottom: 16%;
+  right: 8%;
+  width: 28rem;
+  height: 28rem;
+  background: rgba(0, 194, 255, 0.2);
+  animation: contactOrbTwo 22s ease-in-out infinite alternate;
+}
+
+.contact-wave {
+  opacity: 0.54;
+  filter: drop-shadow(0 0 28px rgba(0, 194, 255, 0.3));
+  animation: contactWaveMove 20s linear infinite alternate;
+  will-change: transform;
+}
+
+.contact-particles span {
+  --x: calc((var(--i) * 47) % 100);
+  --y: calc((var(--i) * 31) % 100);
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  background: rgba(226, 246, 255, 0.78);
+  box-shadow: 0 0 14px rgba(0, 194, 255, 0.45);
+  animation: contactParticleFloat 9s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.6s);
+}
+
+.contact-cta-border {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.85rem;
+  padding: 1px;
+  background: linear-gradient(115deg, rgba(153, 69, 255, 0.6), rgba(20, 241, 149, 0.65), rgba(0, 194, 255, 0.6), rgba(153, 69, 255, 0.6));
+  background-size: 240% 240%;
+  animation: contactBorderFlow 9s linear infinite;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes reviewMarquee {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes aboutGradientMove {
+  from {
+    background-position: 0% 40%;
+  }
+
+  to {
+    background-position: 100% 60%;
+  }
+}
+
+@keyframes aboutOrbOne {
+  from {
+    transform: translate3d(-4%, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(12%, 8%, 0) scale(1.14);
+  }
+}
+
+@keyframes aboutOrbTwo {
+  from {
+    transform: translate3d(6%, 4%, 0) scale(0.96);
+  }
+
+  to {
+    transform: translate3d(-10%, -6%, 0) scale(1.12);
+  }
+}
+
+@keyframes aboutParticleFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.22;
+  }
+
+  50% {
+    transform: translate3d(18px, -26px, 0);
+    opacity: 0.72;
+  }
+}
+
+@keyframes solutionBorderSweep {
+  from {
+    transform: translateX(-55%);
+  }
+
+  to {
+    transform: translateX(55%);
+  }
+}
+
+@keyframes contactBorderFlow {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 240% 50%;
+  }
+}
+
+@keyframes contactWaveMove {
+  from {
+    transform: translate3d(-4%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(4%, 18px, 0);
+  }
+}
+
+@keyframes contactOrbOne {
+  from {
+    transform: translate3d(-4%, 2%, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(12%, -6%, 0) scale(1.12);
+  }
+}
+
+@keyframes contactOrbTwo {
+  from {
+    transform: translate3d(6%, 3%, 0) scale(0.96);
+  }
+
+  to {
+    transform: translate3d(-10%, -4%, 0) scale(1.1);
+  }
+}
+
+@keyframes contactParticleFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translate3d(18px, -22px, 0);
+    opacity: 0.72;
+  }
+}
+
+.hero-aurora {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.aurora-orb {
+  position: absolute;
+  display: block;
+  border-radius: 9999px;
+  filter: blur(72px);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+}
+
+.aurora-orb-one {
+  left: 8%;
+  top: 2%;
+  width: min(58vw, 38rem);
+  height: min(58vw, 38rem);
+  background: radial-gradient(circle, rgba(153, 69, 255, 0.5), transparent 66%);
+  animation: auroraDriftOne 18s ease-in-out infinite alternate;
+}
+
+.aurora-orb-two {
+  right: -8%;
+  top: 18%;
+  width: min(54vw, 34rem);
+  height: min(54vw, 34rem);
+  background: radial-gradient(circle, rgba(20, 241, 149, 0.38), transparent 64%);
+  animation: auroraDriftTwo 22s ease-in-out infinite alternate;
+}
+
+.aurora-orb-three {
+  left: 35%;
+  bottom: 4%;
+  width: min(52vw, 32rem);
+  height: min(52vw, 32rem);
+  background: radial-gradient(circle, rgba(0, 194, 255, 0.36), transparent 66%);
+  animation: auroraDriftThree 20s ease-in-out infinite alternate;
+}
+
+.hero-wave-lines {
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.hero-logo-watermark {
+  position: absolute;
+  right: max(2rem, 7vw);
+  top: 13%;
+  width: min(38rem, 76vw);
+  opacity: 0.075;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.wave-runner {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  transform: translate3d(0, 0, 0);
+  will-change: transform, stroke-dashoffset;
+}
+
+.wave-runner path {
+  fill: none;
+  stroke: url("#zenithWaveGradient");
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 540 220;
+  opacity: 0.82;
+  animation: wavePulse 8s ease-in-out infinite alternate;
+}
+
+.wave-runner-one {
+  animation-name: waveTravelOne;
+  animation-duration: 28s;
+}
+
+.wave-runner-two {
+  animation-name: waveTravelTwo;
+  animation-duration: 36s;
+}
+
+.wave-runner-two path {
+  stroke-width: 2;
+  opacity: 0.52;
+  stroke-dasharray: 440 260;
+  animation-duration: 10s;
+}
+
+.hero-particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: #d9fff0;
+  box-shadow:
+    0 0 10px rgba(20, 241, 149, 0.75),
+    0 0 18px rgba(0, 194, 255, 0.45);
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+}
+
+@keyframes auroraDriftOne {
+  from {
+    transform: translate3d(-4%, -2%, 0) scale(1);
+    opacity: 0.45;
+  }
+
+  to {
+    transform: translate3d(10%, 7%, 0) scale(1.14);
+    opacity: 0.62;
+  }
+}
+
+@keyframes auroraDriftTwo {
+  from {
+    transform: translate3d(7%, 0, 0) scale(1.05);
+    opacity: 0.34;
+  }
+
+  to {
+    transform: translate3d(-9%, 8%, 0) scale(1.22);
+    opacity: 0.52;
+  }
+}
+
+@keyframes auroraDriftThree {
+  from {
+    transform: translate3d(6%, 8%, 0) scale(0.96);
+    opacity: 0.28;
+  }
+
+  to {
+    transform: translate3d(-8%, -7%, 0) scale(1.16);
+    opacity: 0.46;
+  }
+}
+
+@keyframes waveTravelOne {
+  from {
+    transform: translate3d(-12%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(12%, 0, 0);
+  }
+}
+
+@keyframes waveTravelTwo {
+  from {
+    transform: translate3d(-16%, 2%, 0);
+  }
+
+  to {
+    transform: translate3d(16%, -2%, 0);
+  }
+}
+
+@keyframes wavePulse {
+  from {
+    stroke-dashoffset: 0;
+    opacity: 0.38;
+  }
+
+  to {
+    stroke-dashoffset: -760;
+    opacity: 0.9;
+  }
+}
+
+@media (max-width: 640px) {
+  .aurora-orb {
+    filter: blur(54px);
+    opacity: 0.42;
+  }
+
+  .hero-wave-lines {
+    top: 10%;
+    height: 50%;
+    width: 170%;
+    left: -35%;
+  }
+
+  .hero-logo-watermark {
+    right: -34%;
+    top: 20%;
+    width: 34rem;
+    opacity: 0.08;
+  }
+
+  .wave-runner path {
+    stroke-width: 2.4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee,
+  .review-marquee-track,
+  .about-zenith-bg::before,
+  .about-gradient-orb,
+  .about-particles span,
+  .contact-cta-border,
+  .contact-orb,
+  .contact-particles span,
+  .contact-wave,
+  .aurora-orb,
+  .hero-logo-watermark,
+  .wave-runner,
+  .wave-runner path {
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+  }
+}
+
+.enterprise-grid {
+  background-image:
+    linear-gradient(rgba(96, 165, 250, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.08) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+.glass {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.72);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(16px);
+}
+
+.field {
+  width: 100%;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.85rem 1rem;
+  color: #f8fafc;
+  outline: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+
+.field::placeholder {
+  color: rgb(148 163 184);
+}
+
+.field:focus {
+  border-color: rgba(20, 241, 149, 0.6);
+  box-shadow: 0 0 0 3px rgba(20, 241, 149, 0.12);
+}
+
+.enterprise-card {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.88), rgba(2, 6, 23, 0.9));
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.32);
+}
+
+.soft-blue-section {
+  background:
+    radial-gradient(circle at 15% 0%, rgba(37, 99, 235, 0.22), transparent 34%),
+    radial-gradient(circle at 85% 25%, rgba(124, 58, 237, 0.18), transparent 30%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.98));
 }

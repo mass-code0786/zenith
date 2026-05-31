@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 520" role="img" aria-labelledby="title desc">
+  <title id="title">Zenith Softech Logo on White Background</title>
+  <desc id="desc">White background flat enterprise logo lockup for Zenith Softech.</desc>
+  <rect width="1180" height="520" rx="28" fill="#FFFFFF"/>
+  <rect x="40" y="40" width="1100" height="440" rx="24" fill="#F7F9FC" stroke="#DCE3ED"/>
+  <defs>
+    <linearGradient id="blue" x1="114" y1="164" x2="306" y2="356" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0047CC"/>
+      <stop offset="1" stop-color="#002B73"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(114 164)">
+    <rect width="192" height="192" rx="32" fill="url(#blue)"/>
+    <path d="M42 48H86M42 96H82M42 144H86" stroke="#C9D1DC" stroke-width="8" stroke-linecap="round" opacity="0.7"/>
+    <text x="96" y="124" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="800" letter-spacing="-5" fill="#FFFFFF">ZS</text>
+    <path d="M130 48H164M144 66H174M152 84H168" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity="0.65"/>
+  </g>
+  <text x="346" y="232" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="800" letter-spacing="0.5" fill="#07111F">Zenith Softech</text>
+  <text x="348" y="284" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" letter-spacing="5" fill="#0047CC">INNOVATE • DEVELOP • ELEVATE</text>
+  <path d="M348 314H940" stroke="#9CA8B7" stroke-width="2" opacity="0.45"/>
+</svg>
