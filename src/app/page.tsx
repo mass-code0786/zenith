@@ -81,14 +81,14 @@ export default function Home() {
       <Nav />
       <FloatingContact />
       <main className="overflow-hidden bg-black text-white">
-        <section id="home" className="relative flex min-h-[calc(100svh-77px)] items-center px-4 py-16 sm:px-6 lg:px-8">
+        <section id="home" className="relative flex min-h-[calc(88svh-77px)] items-center px-4 pb-12 pt-8 sm:min-h-[calc(100svh-77px)] sm:px-6 sm:py-16 lg:px-8">
           <HeroBackground />
           <div className="relative mx-auto flex max-w-7xl flex-col justify-center">
             <MotionShell className="max-w-5xl">
-              <h1 className="max-w-5xl text-[4.25rem] font-semibold leading-[0.86] tracking-tight text-white sm:text-7xl lg:text-8xl">
+              <h1 className="max-w-5xl text-[56px] font-semibold leading-[0.95] tracking-normal text-white max-[380px]:text-5xl sm:text-7xl sm:leading-[0.86] sm:tracking-tight lg:text-8xl">
                 The software company for every business on earth.
               </h1>
-              <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+              <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300 sm:mt-7 sm:text-xl">
                 Zenith Softech builds high-performance software, AI solutions, business automation, CRM, ERP, mobile apps, and digital platforms for modern companies.
               </p>
               <Link
