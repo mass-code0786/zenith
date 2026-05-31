@@ -3,6 +3,7 @@
 import { Download, Eye, Search, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import { AdminAnalyticsDashboard } from "@/components/admin-analytics-dashboard";
 
 type Demo = {
   id: string;
@@ -176,6 +177,7 @@ export function AdminPanel({
             "Demos",
             "Demo Requests",
             "Leads CRM",
+            "Analytics",
             "Contact Messages",
             "Clients",
             "Team",
@@ -185,7 +187,14 @@ export function AdminPanel({
           ].map((item) => (
             <button
               key={item}
-              onClick={() => setActiveTab(item === "Demos" ? "Manage Demos" : item === "Leads CRM" ? "Demo Requests" : item)}
+              onClick={() => {
+                if (item === "Analytics") {
+                  router.push("/admin/analytics");
+                  return;
+                }
+
+                setActiveTab(item === "Demos" ? "Manage Demos" : item === "Leads CRM" ? "Demo Requests" : item);
+              }}
               className={`flex items-center justify-between rounded-lg px-3 py-3 text-left text-sm transition ${
                 activeTab === item || (item === "Demos" && activeTab === "Manage Demos") || (item === "Leads CRM" && activeTab === "Demo Requests")
                   ? "bg-blue-500 text-white"
@@ -216,7 +225,9 @@ export function AdminPanel({
           ))}
         </div>
 
-        {["Dashboard", "Projects", "Clients", "Team", "Blog", "Reports", "Settings"].includes(activeTab) ? (
+        {activeTab === "Dashboard" ? <AdminAnalyticsDashboard embedded /> : null}
+
+        {["Projects", "Clients", "Team", "Blog", "Reports", "Settings"].includes(activeTab) ? (
           <div className="enterprise-card rounded-lg p-6">
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-blue-700">{activeTab}</p>
             <h2 className="mt-3 text-2xl font-semibold text-slate-950">Enterprise module</h2>

@@ -102,7 +102,7 @@ const faqs = [
   {
     question: "How can I contact Zenith Softech?",
     answer:
-      "You can contact us via WhatsApp at +91 8757050254 or call us at +91 6299410254 for consultations and project discussions.",
+      "You can contact us via WhatsApp at +91 8757050254 or call us at +91 80765 68969 for consultations and project discussions.",
   },
 ];
 

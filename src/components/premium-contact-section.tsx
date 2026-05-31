@@ -103,6 +103,8 @@ export function PremiumContactSection() {
                       href={item.href}
                       target={item.external ? "_blank" : undefined}
                       rel={item.external ? "noreferrer" : undefined}
+                      data-ga-event={item.external ? "whatsapp_button_click" : "call_button_click"}
+                      data-ga-label={`Contact section ${item.external ? "WhatsApp" : "call"} link`}
                     >
                       {content}
                     </a>
@@ -135,6 +137,8 @@ export function PremiumContactSection() {
                   href={whatsappLink}
                   target="_blank"
                   rel="noreferrer"
+                  data-ga-event="whatsapp_button_click"
+                  data-ga-label="Contact CTA WhatsApp Us"
                   className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3.5 text-sm font-bold text-black transition hover:bg-blue-100"
                 >
                   <MessageCircle className="mr-2 size-4" />

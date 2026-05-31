@@ -44,6 +44,8 @@ export function ContactCards() {
       <OfficeLocationCard />
       <a
         href={callLink}
+        data-ga-event="call_button_click"
+        data-ga-label="Contact page call card"
         className="group rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 shadow-2xl shadow-black/25 transition hover:border-blue-300/35 hover:bg-white/[0.065]"
       >
         <span className="flex size-12 items-center justify-center rounded-2xl border border-blue-300/20 bg-blue-300/10 text-blue-100">
@@ -56,6 +58,8 @@ export function ContactCards() {
         href={whatsappLink}
         target="_blank"
         rel="noreferrer"
+        data-ga-event="whatsapp_button_click"
+        data-ga-label="Contact page WhatsApp card"
         className="group rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 shadow-2xl shadow-black/25 transition hover:border-emerald-300/35 hover:bg-white/[0.065]"
       >
         <span className="flex size-12 items-center justify-center rounded-2xl border border-emerald-300/20 bg-emerald-300/10 text-emerald-100">

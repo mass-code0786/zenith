@@ -93,6 +93,8 @@ export default function Home() {
               </p>
               <Link
                 href="#services"
+                data-ga-event="get_started_click"
+                data-ga-label="Homepage hero Get started"
                 className="mt-8 inline-flex items-center rounded-full bg-white px-6 py-3.5 text-sm font-bold text-black transition hover:bg-emerald-100"
               >
                 Get started <ArrowRight className="ml-2 size-4" />

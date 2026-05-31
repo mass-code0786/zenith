@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle");
@@ -12,6 +13,13 @@ export function ContactForm() {
       body: JSON.stringify(Object.fromEntries(formData)),
       headers: { "Content-Type": "application/json" },
     });
+
+    if (response.ok) {
+      trackEvent("contact_form_submit", {
+        event_category: "lead",
+        event_label: "Contact form submit",
+      });
+    }
 
     setStatus(response.ok ? "sent" : "error");
   }
@@ -34,6 +42,9 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
+        data-ga-event="contact_form_submit_click"
+        data-ga-category="lead"
+        data-ga-label="Contact form submit button"
         className="rounded-full bg-blue-600 px-6 py-3 font-semibold text-white shadow-[0_16px_40px_rgba(37,99,235,0.18)] transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === "loading" ? "Sending..." : "Submit Inquiry"}

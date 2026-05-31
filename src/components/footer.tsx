@@ -63,11 +63,23 @@ export function Footer() {
                 ))}
               </address>
             </div>
-            <a href={whatsappLink} target="_blank" rel="noreferrer" className="transition hover:text-white">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noreferrer"
+              data-ga-event="whatsapp_button_click"
+              data-ga-label="Footer WhatsApp link"
+              className="transition hover:text-white"
+            >
               <span className="font-semibold text-slate-300">WhatsApp</span>
               <span className="block mt-1">{whatsappDisplay}</span>
             </a>
-            <a href={callLink} className="transition hover:text-white">
+            <a
+              href={callLink}
+              data-ga-event="call_button_click"
+              data-ga-label="Footer call link"
+              className="transition hover:text-white"
+            >
               <span className="font-semibold text-slate-300">Call Us</span>
               <span className="block mt-1">{callingDisplay}</span>
             </a>
