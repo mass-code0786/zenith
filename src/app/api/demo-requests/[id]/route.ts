@@ -6,7 +6,7 @@ type RouteContext = {
   params: Promise<{ id: string }>;
 };
 
-const allowedStatuses = new Set(["New", "Contacted", "Demo Sent", "Closed"]);
+const allowedStatuses = new Set(["New", "Contacted", "Completed"]);
 
 export async function PATCH(request: Request, context: RouteContext) {
   const admin = await getAdminFromSession();

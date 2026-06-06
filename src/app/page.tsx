@@ -104,7 +104,7 @@ export default function Home() {
         </section>
 
         <section className="px-4 pb-12 sm:px-6 lg:px-8">
-          <MotionShell className="mx-auto max-w-7xl overflow-hidden rounded-[1.75rem] border border-white/10 bg-[radial-gradient(circle_at_18%_0%,rgba(20,241,149,0.2),transparent_30%),radial-gradient(circle_at_90%_10%,rgba(153,69,255,0.28),transparent_35%),linear-gradient(135deg,rgba(13,13,18,0.95),rgba(0,0,0,0.98))] p-6 shadow-2xl shadow-purple-950/20 sm:p-8">
+          <MotionShell className="announcement-surface mx-auto max-w-7xl overflow-hidden rounded-[1.75rem] p-6 sm:p-8">
             <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-200">Announcement</p>

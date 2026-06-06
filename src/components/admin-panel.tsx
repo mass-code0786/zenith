@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, Eye, Search, Trash2 } from "lucide-react";
+import { Download, Search, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { AdminAnalyticsDashboard } from "@/components/admin-analytics-dashboard";
@@ -42,7 +42,7 @@ type DemoRequest = {
   createdAt: Date | string;
 };
 
-const statuses = ["All", "New", "Contacted", "Demo Sent", "Closed"];
+const statuses = ["All", "New", "Contacted", "Completed"];
 
 export function AdminPanel({
   demos,
@@ -58,7 +58,6 @@ export function AdminPanel({
   const [activeTab, setActiveTab] = useState("Demo Requests");
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("All");
-  const [expanded, setExpanded] = useState<string | null>(null);
 
   const newRequests = demoRequests.filter((request) => request.status === "New").length;
   const filteredRequests = useMemo(() => {
@@ -132,19 +131,15 @@ export function AdminPanel({
 
   function exportCsv() {
     const rows = [
-      ["Request ID", "Name", "Mobile", "WhatsApp", "Email", "Company", "Software", "Message", "Status", "Follow-up", "Notes", "Date Time"],
+      ["Request ID", "Name", "WhatsApp", "Email", "Project Type", "Message", "Status", "Date Time"],
       ...filteredRequests.map((request) => [
         request.id,
         request.fullName,
-        request.mobileNumber,
         request.whatsappNumber,
         request.email ?? "",
-        request.companyName ?? "",
         request.interestedSoftware,
         request.message,
         request.status,
-        request.followUp ?? "",
-        request.notes ?? "",
         new Date(request.createdAt).toLocaleString(),
       ]),
     ];
@@ -284,59 +279,60 @@ export function AdminPanel({
               </div>
             </div>
 
-            <div className="mt-5 grid gap-3">
+            <div className="mt-5 hidden overflow-x-auto rounded-lg border border-slate-200 md:block">
+              <table className="w-full min-w-[980px] text-left text-sm">
+                <thead className="bg-slate-50 text-xs uppercase tracking-[0.12em] text-slate-500">
+                  <tr>
+                    {['Name', 'WhatsApp', 'Email', 'Project Type', 'Message', 'Date & Time', 'Status', ''].map((heading) => (
+                      <th key={heading} className="px-3 py-3 font-semibold">{heading}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200 bg-white">
+                  {filteredRequests.map((request) => (
+                    <tr key={request.id} className={request.status === "New" ? "bg-blue-50/70" : ""}>
+                      <td className="px-3 py-4 font-semibold text-slate-950">{request.fullName}</td>
+                      <td className="whitespace-nowrap px-3 py-4 text-slate-600">{request.whatsappNumber}</td>
+                      <td className="max-w-48 truncate px-3 py-4 text-slate-600">{request.email || "Not provided"}</td>
+                      <td className="px-3 py-4 text-slate-700">{request.interestedSoftware}</td>
+                      <td className="max-w-64 px-3 py-4 text-slate-600"><p className="line-clamp-3">{request.message || "No message"}</p></td>
+                      <td className="whitespace-nowrap px-3 py-4 text-xs text-slate-500">{new Date(request.createdAt).toLocaleString()}</td>
+                      <td className="px-3 py-4">
+                        <select value={request.status} onChange={(event) => updateRequest(request.id, { status: event.target.value })} className="rounded-full border border-blue-200 bg-white px-3 py-2 text-xs font-semibold text-blue-700">
+                          {!statuses.includes(request.status) ? <option value={request.status}>{request.status}</option> : null}
+                          {statuses.filter((item) => item !== "All").map((item) => <option key={item} value={item}>{item}</option>)}
+                        </select>
+                      </td>
+                      <td className="px-3 py-4">
+                        <button onClick={() => removeRequest(request.id)} aria-label={`Delete request from ${request.fullName}`} className="rounded-full border border-rose-300/50 p-2 text-rose-600 transition hover:bg-rose-50"><Trash2 className="size-4" /></button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mt-5 grid gap-3 md:hidden">
               {filteredRequests.map((request) => (
                 <article key={request.id} className={`rounded-lg border p-4 ${request.status === "New" ? "border-blue-200 bg-blue-50" : "border-slate-200 bg-white"}`}>
-                  <div className="flex flex-col justify-between gap-4 xl:flex-row xl:items-start">
-                    <div className="grid gap-2 text-sm text-slate-600">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <p className="text-base font-semibold text-slate-950">{request.fullName}</p>
-                        <span className="rounded-full border border-blue-200 bg-white px-2 py-0.5 text-xs text-blue-700">{request.status}</span>
-                      </div>
-                      <p>Request ID: {request.id}</p>
-                      <p>Mobile: {request.mobileNumber} | WhatsApp: {request.whatsappNumber}</p>
-                      <p>Email: {request.email || "Not provided"} | Company: {request.companyName || "Not provided"}</p>
-                      <p>Software Requested: {request.interestedSoftware}</p>
-                      <p>Date & Time: {new Date(request.createdAt).toLocaleString()}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      <button onClick={() => setExpanded(expanded === request.id ? null : request.id)} className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-2 text-xs text-slate-600 hover:bg-slate-50">
-                        <Eye className="size-4" />
-                        View
-                      </button>
-                      <select value={request.status} onChange={(event) => updateRequest(request.id, { status: event.target.value })} className="rounded-full border border-blue-200 bg-white px-3 py-2 text-xs text-blue-700">
-                        {statuses.filter((item) => item !== "All").map((item) => (
-                          <option key={item} value={item}>{item}</option>
-                        ))}
-                      </select>
-                      <button onClick={() => removeRequest(request.id)} className="inline-flex items-center gap-2 rounded-full border border-rose-300/30 px-3 py-2 text-xs text-rose-100 hover:bg-rose-300/10">
-                        <Trash2 className="size-4" />
-                        Delete
-                      </button>
-                    </div>
+                  <div className="flex items-start justify-between gap-3">
+                    <div><p className="font-semibold text-slate-950">{request.fullName}</p><p className="mt-1 text-xs text-slate-500">{new Date(request.createdAt).toLocaleString()}</p></div>
+                    <button onClick={() => removeRequest(request.id)} aria-label={`Delete request from ${request.fullName}`} className="rounded-full border border-rose-300/50 p-2 text-rose-600"><Trash2 className="size-4" /></button>
                   </div>
-                  {expanded === request.id ? (
-                    <div className="mt-4 grid gap-3 border-t border-slate-200 pt-4">
-                      <p className="text-sm text-slate-600">{request.message}</p>
-                      <textarea
-                        defaultValue={request.notes ?? ""}
-                        rows={3}
-                        placeholder="Lead notes"
-                        className="field resize-none"
-                        onBlur={(event) => updateRequest(request.id, { notes: event.target.value })}
-                      />
-                      <input
-                        defaultValue={request.followUp ?? ""}
-                        placeholder="Follow-up, e.g. Tomorrow 11:00 AM or 2026-06-01"
-                        className="field"
-                        onBlur={(event) => updateRequest(request.id, { followUp: event.target.value })}
-                      />
-                    </div>
-                  ) : null}
+                  <dl className="mt-4 grid gap-3 text-sm">
+                    <div><dt className="text-xs font-semibold uppercase text-slate-400">WhatsApp</dt><dd className="mt-1 text-slate-700">{request.whatsappNumber}</dd></div>
+                    <div><dt className="text-xs font-semibold uppercase text-slate-400">Email</dt><dd className="mt-1 break-all text-slate-700">{request.email || "Not provided"}</dd></div>
+                    <div><dt className="text-xs font-semibold uppercase text-slate-400">Project Type</dt><dd className="mt-1 text-slate-700">{request.interestedSoftware}</dd></div>
+                    <div><dt className="text-xs font-semibold uppercase text-slate-400">Message</dt><dd className="mt-1 text-slate-600">{request.message || "No message"}</dd></div>
+                  </dl>
+                  <select value={request.status} onChange={(event) => updateRequest(request.id, { status: event.target.value })} className="mt-4 w-full rounded-full border border-blue-200 bg-white px-3 py-2 text-sm font-semibold text-blue-700">
+                    {!statuses.includes(request.status) ? <option value={request.status}>{request.status}</option> : null}
+                    {statuses.filter((item) => item !== "All").map((item) => <option key={item} value={item}>{item}</option>)}
+                  </select>
                 </article>
               ))}
-              {!filteredRequests.length ? <p className="text-sm text-slate-600">No demo requests found.</p> : null}
             </div>
+            {!filteredRequests.length ? <p className="mt-5 text-sm text-slate-600">No demo requests found.</p> : null}
           </div>
         ) : null}
 

@@ -10,7 +10,7 @@ const requestSchema = z.object({
   email: z.union([z.email(), z.literal("")]).optional(),
   companyName: z.string().optional(),
   interestedSoftware: z.string().min(2),
-  message: z.string().min(3),
+  message: z.string().optional().default(""),
 });
 
 export async function POST(request: Request) {
@@ -27,6 +27,7 @@ export async function POST(request: Request) {
       ...data,
       email: data.email || null,
       companyName: data.companyName || null,
+      message: data.message.trim(),
       status: "New",
     },
   });
@@ -57,6 +58,7 @@ export async function GET(request: Request) {
               { email: { contains: query } },
               { interestedSoftware: { contains: query } },
               { companyName: { contains: query } },
+              { message: { contains: query } },
             ],
           }
         : {}),
